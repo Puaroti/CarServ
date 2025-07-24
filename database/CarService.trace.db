@@ -1,0 +1,242 @@
+2025-06-19 21:04:03.115961+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Столбец "METHOD_COMMUNICATON" не найден
+Column "METHOD_COMMUNICATON" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS reg_user_info (id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(50) UNIQUE NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, user_type VARCHAR(50) NOT NULL, registration_user_status VARCHAR(50) NOT NULL, method_communication VARCHAR(50) NOT NULL CHECK (method_communicaton IN('telegram','whatsapp','telephone')), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, role ENUM ('client','master','admin') DEFAULT 'client') [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:244)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:226)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.ConditionIn.optimize(ConditionIn.java:101)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:192)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:22)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 21:06:28.774287+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS reg_user_info (id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(50) UNIQUE NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, user_type VARCHAR(50) NOT NULL, registration_user_status VARCHAR(50) NOT NULL, method_communicaton ENUM ('telegram','whatsapp','telephone')DEFAULT'telephone')[*], created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, role ENUM ('client','master','admin') DEFAULT 'client')"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS reg_user_info (id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(50) UNIQUE NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, user_type VARCHAR(50) NOT NULL, registration_user_status VARCHAR(50) NOT NULL, method_communicaton ENUM ('telegram','whatsapp','telephone')DEFAULT'telephone')[*], created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, role ENUM ('client','master','admin') DEFAULT 'client')"; SQL statement:
+CREATE TABLE IF NOT EXISTS reg_user_info (id INT AUTO_INCREMENT PRIMARY KEY, login VARCHAR(50) UNIQUE NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(255) NOT NULL, phone_number VARCHAR(255) NOT NULL, user_type VARCHAR(50) NOT NULL, registration_user_status VARCHAR(50) NOT NULL, method_communicaton ENUM ('telegram','whatsapp','telephone')DEFAULT'telephone'), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, role ENUM ('client','master','admin') DEFAULT 'client') [42000-232]
+2025-06-19 21:07:17.733724+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "REG_INFO" не найдена
+Table "REG_INFO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS user_activity_history (id INT AUTO_INCREMENT PRIMARY KEY, user_login VARCHAR(100) NOT NULL, activity_at VARCHAR(100) NOT NULL, user_activity_type VARCHAR(100) NOT NULL, method_communicaton VARCHAR(50) NOT NULL CHECK (method_communicaton IN('telegram','whatsapp','telephone')), FOREIGN KEY (user_login) REFERENCES reg_info(login)) [42102-232]
+2025-06-19 21:08:07.763259+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "REG_INFO" не найдена
+Table "REG_INFO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS user_activity_history (id INT AUTO_INCREMENT PRIMARY KEY, user_login VARCHAR(100) NOT NULL, activity_at VARCHAR(100) NOT NULL, user_activity_type VARCHAR(100) NOT NULL, FOREIGN KEY (user_login) REFERENCES reg_info(login)) [42102-232]
+2025-06-19 21:08:56.683681+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "REG_INFO" не найдена
+Table "REG_INFO" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS user_activity_history (id INT AUTO_INCREMENT PRIMARY KEY, user_login VARCHAR(100) NOT NULL, activity_at VARCHAR(100) NOT NULL, FOREIGN KEY (user_login) REFERENCES reg_info(login)) [42102-232]
+2025-06-19 21:11:14.998737+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) [*]INT NOT NULL, model VARCHAR(50) INT NOT NULL, year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id))"; ожидалось "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) [*]INT NOT NULL, model VARCHAR(50) INT NOT NULL, year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id))"; expected "ARRAY, INVISIBLE, VISIBLE, NOT NULL, DEFAULT, GENERATED, ON UPDATE, NOT NULL, DEFAULT ON NULL, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, COMMENT, PRIMARY KEY, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) INT NOT NULL, model VARCHAR(50) INT NOT NULL, year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id)) [42001-232]
+2025-06-19 21:12:50.901638+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) NOT NULL, model VARCHAR(50) NOT NULL, [*]year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id))"; ожидалось "identifier"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) NOT NULL, model VARCHAR(50) NOT NULL, [*]year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id))"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) NOT NULL, model VARCHAR(50) NOT NULL, year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id)) [42001-232]
+2025-06-19 21:14:03.404760+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Столбец "CLIENT_ID" не найден
+Column "CLIENT_ID" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS cars_clients (id INT AUTO_INCREMENT PRIMARY KEY, user_id INT NOT NULL, make VARCHAR(50) NOT NULL, model VARCHAR(50) NOT NULL, car_year INT NOT NULL, vin VARCHAR(17) NOT NULL, mileage INT NOT NULL, FOREIGN KEY (client_id) REFERENCES reg_user_info(id)) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:215)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:43)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 21:15:19.686628+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Столбец "WORKER_ID" не найден
+Column "WORKER_ID" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS service_work (id INT AUTO_INCREMENT PRIMARY KEY, service_name VARCHAR(100) NOT NULL, type_of_service VARCHAR(100) NOT NULL, service_focus VARCHAR(100) NOT NULL, price DECIMAL(10, 2) NOT NULL, FOREIGN KEY (worker_id) REFERENCES reg_user_info(id)) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:215)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:64)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 21:17:55.245267+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Столбец "WORKER_ID" не найден
+Column "WORKER_ID" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS service_work (id INT AUTO_INCREMENT PRIMARY KEY, service_name VARCHAR(100) NOT NULL, type_of_service VARCHAR(100) NOT NULL, service_focus VARCHAR(100) NOT NULL, price DECIMAL(10, 2) NOT NULL, FOREIGN KEY (worker_id) REFERENCES workers_service(id)) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:215)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:64)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 21:19:51.861251+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,[*]))"; ожидалось "identifier"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,[*]))"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,)) [42001-232]
+2025-06-19 21:20:33.693416+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,[*])"; ожидалось "identifier"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,[*])"; expected "identifier"; SQL statement:
+CREATE TABLE IF NOT EXISTS parts (id INT AUTO_INCREMENT PRIMARY KEY,parts_name VARCHAR(255),quantity_patrs INT NOT NULL,price_for_one DECIMAL(10,2),price_for_everything DECIMAL(10,2) NOT NULL,) [42001-232]
+2025-06-19 21:21:14.227550+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS orders_clients (id INT AUTO_INCREMENT PRIMARY KEY, car_id INT NOT NULL, worker_id INT NOT NULL, client_id INT NOT NULL, receipt_date DATE NOT NULL, start_date DATE, finish_date DATE, problem_description TEXT, status ENUM('OPEN', 'IN_PROGRESS', 'DONE', 'CANCELLED') DEFAULT 'OPEN', total_cost DECIMAL(12, 2) DEFAULT 0.00, payment_status ENUM('UNPAID', 'PARTIAL', 'PAID') DEFAULT 'UNPAID', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (car_id) REFERENCES cars_clients(id), FOREIGN KEY (worker_id) REFERENCES workers_service(id), FOREIGN KEY (client_id) REFERENCES reg_user_info(id)[*]"; ожидалось "INDEX, ON, NOT DEFERRABLE, DEFERRABLE, NOCHECK, CHECK, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS orders_clients (id INT AUTO_INCREMENT PRIMARY KEY, car_id INT NOT NULL, worker_id INT NOT NULL, client_id INT NOT NULL, receipt_date DATE NOT NULL, start_date DATE, finish_date DATE, problem_description TEXT, status ENUM('OPEN', 'IN_PROGRESS', 'DONE', 'CANCELLED') DEFAULT 'OPEN', total_cost DECIMAL(12, 2) DEFAULT 0.00, payment_status ENUM('UNPAID', 'PARTIAL', 'PAID') DEFAULT 'UNPAID', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (car_id) REFERENCES cars_clients(id), FOREIGN KEY (worker_id) REFERENCES workers_service(id), FOREIGN KEY (client_id) REFERENCES reg_user_info(id)[*]"; expected "INDEX, ON, NOT DEFERRABLE, DEFERRABLE, NOCHECK, CHECK, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS orders_clients (id INT AUTO_INCREMENT PRIMARY KEY, car_id INT NOT NULL, worker_id INT NOT NULL, client_id INT NOT NULL, receipt_date DATE NOT NULL, start_date DATE, finish_date DATE, problem_description TEXT, status ENUM('OPEN', 'IN_PROGRESS', 'DONE', 'CANCELLED') DEFAULT 'OPEN', total_cost DECIMAL(12, 2) DEFAULT 0.00, payment_status ENUM('UNPAID', 'PARTIAL', 'PAID') DEFAULT 'UNPAID', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (car_id) REFERENCES cars_clients(id), FOREIGN KEY (worker_id) REFERENCES workers_service(id), FOREIGN KEY (client_id) REFERENCES reg_user_info(id) [42001-232]
+2025-06-19 21:22:38.892327+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2)PRIMARY KEY [*](order_id, service_id)PRIMARY KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id))"; ожидалось "HASH, CONSTRAINT, COMMENT, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2)PRIMARY KEY [*](order_id, service_id)PRIMARY KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id))"; expected "HASH, CONSTRAINT, COMMENT, UNIQUE, NOT NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2)PRIMARY KEY (order_id, service_id)PRIMARY KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id)) [42001-232]
+2025-06-19 21:23:57.369746+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Попытка создания второго первичного ключа
+Attempt to define a second primary key; SQL statement:
+CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id, service_id),PRIMARY KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id)) [90017-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:644)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.message.DbException.get(DbException.java:188)
+	at org.h2.command.ddl.CommandWithColumns.setPrimaryKey(CommandWithColumns.java:144)
+	at org.h2.command.ddl.CommandWithColumns.addConstraintCommand(CommandWithColumns.java:49)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8868)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8819)
+	at org.h2.command.Parser.parseCreate(Parser.java:6398)
+	at org.h2.command.Parser.parsePrepared(Parser.java:645)
+	at org.h2.command.Parser.parse(Parser.java:581)
+	at org.h2.command.Parser.parse(Parser.java:556)
+	at org.h2.command.Parser.prepareCommand(Parser.java:484)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:645)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:561)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1164)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:103)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 21:26:00.966992+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id) [*]REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id))"; ожидалось "INDEX, ,, )"
+Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id) [*]REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id))"; expected "INDEX, ,, )"; SQL statement:
+CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id)) [42001-232]
+2025-06-19 21:26:55.648380+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "ORDERS" не найдена
+Table "ORDERS" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id, service_id),FOREIGN KEY (order_id) REFERENCES orders(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id)) [42102-232]
+2025-06-19 21:28:13.963605+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Столбец "ORDER_ID" не найден
+Column "ORDER_ID" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS used_order_workers (order_id INT NOT NULL, service_id INT NOT NULL, quantity INT DEFAULT 1, price DECIMAL (10,2),PRIMARY KEY (order_id, service_id),FOREIGN KEY (order_id) REFERENCES orders_clients(order_id),FOREIGN KEY (service_id) REFERENCES service_work(id)) [42122-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:786)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:219)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:304)
+	at org.h2.command.Command.executeUpdate(Command.java:248)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:103)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:12)
+2025-06-19 18:44:42.886857Z jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1624)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:468)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:714)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:598)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:844)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:721)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:720)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-06-19 18:44:59.091380Z jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1624)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:468)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:714)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:598)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:844)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:721)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:720)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-06-19 18:45:56.482846Z jdbc[3]: exception
+java.sql.SQLClientInfoException: Client info name 'ApplicationName' not supported.
+	at org.h2.jdbc.JdbcConnection.setClientInfo(JdbcConnection.java:1624)
+	at com.intellij.database.remote.jdbc.impl.RemoteConnectionImpl.setClientInfo(RemoteConnectionImpl.java:468)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:714)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:598)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:844)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:721)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:400)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:720)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)

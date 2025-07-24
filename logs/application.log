@@ -1,0 +1,33 @@
+2025-07-24 21:48:51,133 ERROR [main] o.e.C.Database.DatabaseInit - Ошибка при инициализации БД
+org.postgresql.util.PSQLException: Ошибка при попытке подсоединения.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:385)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:57)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:277)
+	at org.postgresql.Driver.makeConnection(Driver.java:448)
+	at org.postgresql.Driver.connect(Driver.java:298)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at org.example.CoreCarService.Database.ConnectionServerInfo.getConnectionPostgresql(ConnectionServerInfo.java:31)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:15)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:16)
+Caused by: java.net.BindException: Cannot assign requested address: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:628)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:533)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:583)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:282)
+	at java.base/java.net.Socket.connect(Socket.java:665)
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:261)
+	at org.postgresql.core.PGStream.<init>(PGStream.java:122)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:146)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:289)
+	... 9 common frames omitted
+2025-07-24 21:49:56,426 ERROR [main] o.e.C.Database.DatabaseInit - Ошибка при инициализации БД
+org.postgresql.util.PSQLException: Unable to parse URL jdbc:postgresql://http://192.168.31.142:5432/mydb
+	at org.postgresql.Driver.connect(Driver.java:281)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at org.example.CoreCarService.Database.ConnectionServerInfo.getConnectionPostgresql(ConnectionServerInfo.java:31)
+	at org.example.CoreCarService.Database.DatabaseInit.initRegAuthDB(DatabaseInit.java:15)
+	at org.example.consoleUI.ConsoleApp.main(ConsoleApp.java:16)
+2025-07-24 21:50:48,217 INFO  [main] o.e.C.Database.DatabaseInit - Соединение с БД PostgreSQL установлено!

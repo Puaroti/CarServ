@@ -1,0 +1,2 @@
+2025-06-27 18:14:00,241 INFO  [main] o.e.C.Database.DatabaseInit - Соединение с БД H2 установлено!
+2025-06-27 18:14:46,904 INFO  [main] o.e.C.Database.DatabaseInit - Соединение с БД H2 установлено!
