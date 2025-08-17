@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 011-alter-orders_clients-columns-to-bigint
+      author: cascade
+      changes:
+        - modifyDataType:
+            tableName: orders_clients
+            columnName: id
+            newDataType: BIGINT
+        - modifyDataType:
+            tableName: orders_clients
+            columnName: car_id
+            newDataType: BIGINT
+        - modifyDataType:
+            tableName: orders_clients
+            columnName: worker_id
+            newDataType: BIGINT
+        - modifyDataType:
+            tableName: orders_clients
+            columnName: client_id
+            newDataType: BIGINT

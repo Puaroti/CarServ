@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 012-alter-parts-id-to-bigint
+      author: cascade
+      changes:
+        - modifyDataType:
+            tableName: parts
+            columnName: id
+            newDataType: BIGINT
