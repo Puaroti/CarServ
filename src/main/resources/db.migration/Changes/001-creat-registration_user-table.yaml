@@ -1,0 +1,76 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-registration_user-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: reg_user_info
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: reg_user_info_pkey
+                    nullable: false
+              - column:
+                  name: login
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: full_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: phone_number
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: user_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration_user_status
+                  type: VARCHAR(50)
+                  defaultValue: "registered"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: method_communicate
+                  type: VARCHAR(50)
+                  defaultValue: "telephone"
+              - column:
+                  name: gender
+                  type: VARCHAR(20)
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  defaultValue: "client"
+              - createIndex:
+                  tableName: reg_user_info
+                  indexName: idx_reg_user_info_created_at
+                  columns:
+                    - column:
+                        name: created_at

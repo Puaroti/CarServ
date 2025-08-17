@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-cars_clients-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: cars_clients
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: cars_clients_pkey
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: make
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: model
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: car_year
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: vin
+                  type: VARCHAR(17)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: mileage
+                  type: INT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: cars_clients
+            baseColumnNames: user_id
+            constraintName: fk_cars_clients_user_id
+            referencedTableName: reg_user_info
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - createIndex:
+            tableName: cars_clients
+            indexName: idx_cars_clients_user_id
+            columns:
+              - column:
+                  name: user_id

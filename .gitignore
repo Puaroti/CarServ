@@ -36,3 +36,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Secrets and runtime artifacts ###
+.env
+*.env
+logs/
+*.log
+docker-data/
+*.pid

@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 009-create-used_order_parts-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: used_order_parts
+            ifNotExists: true
+            columns:
+              - column:
+                  name: order_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: part_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity_used
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            tableName: used_order_parts
+            columnNames: order_id, part_id
+            constraintName: pk_used_order_parts
+        - addForeignKeyConstraint:
+            baseTableName: used_order_parts
+            baseColumnNames: order_id
+            constraintName: fk_used_order_parts_order_id
+            referencedTableName: orders_clients
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: used_order_parts
+            baseColumnNames: part_id
+            constraintName: fk_used_order_parts_part_id
+            referencedTableName: parts
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - createIndex:
+            tableName: used_order_parts
+            indexName: idx_used_order_parts_order_id
+            columns:
+              - column:
+                  name: order_id
+        - createIndex:
+            tableName: used_order_parts
+            indexName: idx_used_order_parts_part_id
+            columns:
+              - column:
+                  name: part_id

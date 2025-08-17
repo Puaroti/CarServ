@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-parts-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: parts
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: parts_pkey
+                    nullable: false
+              - column:
+                  name: parts_name
+                  type: VARCHAR(255)
+              - column:
+                  name: quantity_patrs
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price_for_one
+                  type: NUMERIC(10,2)
+              - column:
+                  name: price_for_everything
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            tableName: parts
+            indexName: idx_parts_name
+            columns:
+              - column:
+                  name: parts_name

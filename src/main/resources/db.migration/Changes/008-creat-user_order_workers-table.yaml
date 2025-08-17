@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 008-create-used_order_workers-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: used_order_workers
+            ifNotExists: true
+            columns:
+              - column:
+                  name: order_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: quantity
+                  type: INT
+                  defaultValueNumeric: 1
+              - column:
+                  name: price
+                  type: NUMERIC(10,2)
+        - addPrimaryKey:
+            tableName: used_order_workers
+            columnNames: order_id, service_id
+            constraintName: pk_used_order_workers
+        - addForeignKeyConstraint:
+            baseTableName: used_order_workers
+            baseColumnNames: order_id
+            constraintName: fk_used_order_workers_order_id
+            referencedTableName: orders_clients
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: used_order_workers
+            baseColumnNames: service_id
+            constraintName: fk_used_order_workers_service_id
+            referencedTableName: service_work
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        # Индексы (полезны для выборок по отдельным FK)
+        - createIndex:
+            tableName: used_order_workers
+            indexName: idx_used_order_workers_order_id
+            columns:
+              - column:
+                  name: order_id
+        - createIndex:
+            tableName: used_order_workers
+            indexName: idx_used_order_workers_service_id
+            columns:
+              - column:
+                  name: service_id

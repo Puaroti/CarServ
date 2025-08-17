@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-service_work-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: service_work
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: service_work_pkey
+                    nullable: false
+              - column:
+                  name: worker_id
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_of_service
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: service_focus
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: NUMERIC(10,2)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: service_work
+            baseColumnNames: worker_id
+            constraintName: fk_service_work_worker_id
+            referencedTableName: workers_service
+            referencedColumnNames: id
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - createIndex:
+            tableName: service_work
+            indexName: idx_service_work_worker_id
+            columns:
+              - column:
+                  name: worker_id

@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-history_user_activity-table
+      author: aleksey
+      changes:
+        - createTable:
+            tableName: user_activity_history
+            ifNotExists: true
+            columns:
+              - column:
+                  name: id
+                  type: SERIAL
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: user_activity_history_pkey
+                    nullable: false
+              - column:
+                  name: user_login
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activity_at
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: user_activity_history
+            baseColumnNames: user_login
+            constraintName: fk_user_activity_history_user_login
+            referencedTableName: reg_user_info
+            referencedColumnNames: login
+            onDelete: RESTRICT
+            onUpdate: CASCADE
+        - createIndex:
+            tableName: user_activity_history
+            indexName: idx_user_activity_history_user_login
+            columns:
+              - column:
+                  name: user_login
